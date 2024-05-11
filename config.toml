@@ -1,0 +1,64 @@
+baseURL = "https://entrpix.me/"
+theme = "hugo-ficurinia"
+title = "Entrpix's Website"
+languageCode = "en"
+defaultContentLanguage = "en"
+
+copyright = "Entrpix - GPLv3"
+
+
+[params]
+    author = "Lily Evergarden"
+    description = "Entrpix's Website and Blog"
+
+    posts = "posts"
+    showPostsLink = true 
+
+    showSinglePageAsHome = true
+    homeSinglePage = "/about"
+
+    logo = "/logo.png"
+    favicon = "/logo.png"
+
+    showTags = false
+    showRss = false
+
+    tagsInArticlePreview = true
+
+    enableSearch = true
+    searchbarEverywhere = true
+
+[menu]
+    [[menu.icons]]
+        identifier = "github"
+        name = "GitHub"
+        url = "https://github.com/entrpix"
+        weight = 10
+    [[menu.icons]]
+        identifier = "twitter"
+        name = "Twitter"
+        url = "https://twitter.com/entrpix"
+        weight = 10
+    [[menu.icons]]
+        identifier = "youtube"
+        name = "YouTube"
+        url = "https://youtube.com/entrpix"
+        weight = 10
+    [[menu.icons]]
+        identifier = "discord"
+        name = "Discord"
+        url = "https://discord.com/users/1168045766770696193"
+        weight = 10
+    [[menu.icons]]
+        identifier = "email"
+        name = "E-Mail"
+        url = "mailto:lily@entrpix.me"
+        weight = 10
+    [[menu.icons]]
+        identifier = "steam"
+        name = "Steam"
+        url = "https://steamcommunity.com/id/entrpix"
+        weight = 10
+
+[outputs]
+    home = ["HTML", "JSON"]
