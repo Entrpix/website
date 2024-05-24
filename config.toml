@@ -42,7 +42,7 @@ copyright = "Entrpix - GPLv3"
     [[menu.icons]]
         identifier = "youtube"
         name = "YouTube"
-        url = "https://youtube.com/lilyevergarden"
+        url = "https://youtube.com/@chlilyevergarden"
         weight = 10
     [[menu.icons]]
         identifier = "discord"
