@@ -5,11 +5,11 @@ comments: false
 norss: true
 ---
 
-Hai :D My name is Lily!\
-I am a 🏳️‍⚧️Transfem 14-yo Fullstack Web-Developer
+Hai, I'm Lily!
+I am a Transfem 14-yo Fullstack Web-Developer
 
-I mainly work with [Typescript](https://www.typescriptlang.org/) and [NodeJS](https://nodejs.org)\
-I am a developer for [Mercury Workshop](https://mercurywork.shop) and some other groups you may have heard of.
+I mainly work with [Typescript](https://www.typescriptlang.org/) and [NodeJS](https://nodejs.org).\
+I am a developer for [Mercury Workshop](https://mercurywork.shop).
 
 Programming languages I'm familiar with:
 - JavaScript/TypeScript
@@ -26,4 +26,4 @@ Some non-programming things I'm interested in are:
 - Vtubers
 
 \
-ily [Hannah](https://zeg.entrpix.me) <3
+ily [Claire](https://claireoni.xyz/) <3
