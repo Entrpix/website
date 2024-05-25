@@ -1,6 +1,6 @@
 baseURL = "https://entrpix.me/"
 theme = "hugo-ficurinia"
-title = "Entrpix's Website"
+title = "Scaratek's Website"
 languageCode = "en"
 defaultContentLanguage = "en"
 
@@ -9,7 +9,7 @@ copyright = "Entrpix - GPLv3"
 
 [params]
     author = "Lily Evergarden"
-    description = "Entrpix's Website and Blog"
+    description = "Scaratek's Website and Blog"
 
     posts = "posts"
     showPostsLink = true 
@@ -37,12 +37,12 @@ copyright = "Entrpix - GPLv3"
     [[menu.icons]]
         identifier = "twitter"
         name = "Twitter"
-        url = "https://twitter.com/entrpix"
+        url = "https://twitter.com/scaratek"
         weight = 10
     [[menu.icons]]
         identifier = "youtube"
         name = "YouTube"
-        url = "https://youtube.com/entrpix"
+        url = "https://youtube.com/@chlilyevergarden"
         weight = 10
     [[menu.icons]]
         identifier = "discord"
@@ -57,7 +57,7 @@ copyright = "Entrpix - GPLv3"
     [[menu.icons]]
         identifier = "steam"
         name = "Steam"
-        url = "https://steamcommunity.com/id/entrpix"
+        url = "https://steamcommunity.com/id/scaratek"
         weight = 10
 
 [outputs]
