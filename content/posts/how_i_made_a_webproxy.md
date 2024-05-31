@@ -40,45 +40,75 @@ It uses [ExpressJS](https://expressjs.com) and [node-fetch](https://www.npmjs.co
 
 This is the server code:
 ```js
-app.get('/url/*', async (req, res) => {
-  const URL = decodeURIComponent(req.params[0]);
-  try {
-    const response = await fetch(URL);
-    const contentType = response.headers.get('content-type');
+import fetch from 'node-fetch';
+import express from 'express';
 
+const publicPath = "public";
+const port = 3000;
+
+const blockList = ["https://www.google.com"]; // Sites in here will return 500
+const jsInjection = `console.log('native');`; // Injects this into page
+
+const app = express();
+app.use(express.static(publicPath));
+
+const handleResponse = async (response, res) => {
+    const contentType = response.headers.get('content-type');
+    res.setHeader('Content-Type', contentType);
 
     if (contentType && contentType.startsWith('text')) {
-      const data = await response.text();
-      const rewritten = data + `<script src="/native.js"></script>`; // Element Rewriting
-      res.setHeader('Content-Type', contentType);
-      res.send(rewritten);
+        const data = await response.text();
+        const rewritten = data + `<script src="/native.js"></script>` + `<script>${jsInjection}</script>`; // Element Rewriting + JS Injection
 
+        res.send(rewritten);
 
-    } else { // Images
-      const data = await response.arrayBuffer();
-      const buffer = Buffer.from(data);
-      res.setHeader('Content-Type', contentType);
-      res.send(buffer);
+    } else {
+        const data = await response.arrayBuffer();
+        const buffer = Buffer.from(data);
+
+        res.send(buffer);
     }
+}
 
+app.get('/url/*', async (req, res) => {
+    const URL = req.params[0];
+    if (blockList.includes(URL)) {
+        res.status(500).send('Blocked URL');
+        return;
+    } // Block URLs
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error fetching URL');
-  }
+    try {
+        const response = await fetch(URL);
+        await handleResponse(response, res);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching URL');
+    }
+});
+
+app.listen(port, () => { 
+    console.log(`Server is running on port: ${port}`); 
 });
 ```
-
 
 `contentType` is used for controlling how the content is being served.\
 Things like HTML, CSS, etc. use `Content-Type text/*something*` and are returned as text.\
 Meanwhile images use `Content-Type image/*something*` and return buffers.
 
+```js
+    if (blockList.includes(URL)) {
+        res.status(500).send('Blocked URL');
+        return;
+    } // Block URLs
+```
+This is used to block URLs
+
 
 ```js
-const rewritten = data + `<script src="/native.js"></script>`; // Element Rewriting
+const rewritten = data + `<script src="/native.js"></script>` + `<script>${jsInjection}</script>`; // Element Rewriting + JS Injection
 ```
-This is used to inject the client/rewriter inside the page.\
+This is used to inject the client/rewriter inside the page as well as injecting custom JS inside the page.\
 This gives us the benefit of being able to use APIs like `document` to control the page, compared to using an HTML parser like [parse5](https://www.npmjs.com/package/parse5)
 
 
@@ -101,62 +131,37 @@ Will be rewritten as
 
 The clients code is:
 ```js
-function rewrite(element) {
-    const href = element.getAttribute('href');
-    const src = element.getAttribute('src');
+function rewrite(element, proxyUrl) {
+    const attributes = ['href', 'src']; // Rewrite these attr's
 
+    attributes.forEach(attr => {
+        const attrValue = element.getAttribute(attr);
 
-    if (src && src.includes('native.js')) {
-        return; // lmao
-    }
-   
-    if (href) {
-        if (!href.startsWith('http')) {
-            element.setAttribute('href', `${window.location.href}${encodeURIComponent(href)}`);
-        } else {
-            element.setAttribute('href', `${window.location.origin}/url/${encodeURIComponent(href)}`);
+        if (attrValue && !attrValue.includes('native.js')) { // Don't rewrite the rewritier
+            const url = new URL(attrValue, proxyUrl);
+            element.setAttribute(attr, `${window.location.origin}/url/${url}`);
         }
-    }
-   
-    if (src) {
-        if (!src.startsWith('http')) {
-            element.setAttribute('src', `${window.location.href}${encodeURIComponent(src)}`);
-        } else {
-            element.setAttribute('src', `${window.location.origin}/url/${encodeURIComponent(src)}`);
-        }
-    }
-
+    });
 
     if (element.hasAttribute('integrity')) {
-        element.removeAttribute('integrity'); // wtf is this
+        element.removeAttribute('integrity'); // kys
     }
 }
 
+function getUrl() {
+    return window.location.pathname.split('/url/').pop(); // Grab URL
+};
+
+const proxyUrl = getUrl();
 
 const elements = document.querySelectorAll('[href], [src]');
-elements.forEach(rewrite);
-
-
-const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1) {
-                rewrite(node);
-            }
-        });
-    });
-});
-
-
-observer.observe(document.body, { childList: true, subtree: true });
+elements.forEach(element => rewrite(element, proxyUrl));
 ```
 
 
-Attributes that start with `http` (links) are treated differently as links would be break.\
-So they use `${window.location.origin}/url/` instead of `${window.location.href}`
+It will rewrite the attributes `src` and `href`
 
-
-A mutation observer is used to make sure all elements are `sandboxed`.
+It also has extra code to fix some issues like the `integrity` API, making sure all pages get re-written correctly, etc.
 
 ## Tada
 Thats a simple Webproxy that does HTML and CSS rewriting :D\
