@@ -1,42 +1,33 @@
 ---
 title: How I made a basic Webproxy
-date: 2024-05-10 10:29:30
+date: 2024-06-07 10:29:30
 tags: ["webproxy", "web-development"]
 ---
-
 
 # How I made a basic Webproxy
 I wanted to document how I made a very simple Webproxy for anyone whos interested in this kind of stuff
 
-
 First of all this not something like [Ultraviolet](https://github.com/titaniumnetwork-dev/ultraviolet).\
-[Ultraviolet](https://github.com/titaniumnetwork-dev/ultraviolet) uses [TompHTTP](https://github.com/tomphttp), uses [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API), and does JavaScript rewriting.
-
+[Ultraviolet](https://github.com/titaniumnetwork-dev/ultraviolet) uses [TompHTTP](https://github.com/tomphttp), [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API), and does JavaScript rewriting.
 
 Frankly, all of that stuff is too complicated for me.
-
 
 So instead I wanted to create a basic Webproxy that only does HTML and CSS rewriting.\
 This means only static sites will work.
 
-
 ## How I made it
 There are two parts, the server and the client.
-
 
 ### Server
 The server is simple.\
 It uses [ExpressJS](https://expressjs.com) and [node-fetch](https://www.npmjs.com/package/node-fetch).
 
-
 [ExpressJS](https://expressjs.com) is used for:
 - Serving the client
-- Creating the API for [node-fetch](https://www.npmjs.com/package/node-fetch)
-- And controlling headers.
-
+- Creating the API for proxying the website
+- And controlling MIME types.
 
 [node-fetch](https://www.npmjs.com/package/node-fetch) is used for proxying the request to the website
-
 
 This is the server code:
 ```js
@@ -103,7 +94,6 @@ Meanwhile images use `Content-Type image/*something*` and return buffers.
     } // Block URLs
 ```
 This is used to block URLs
-
 
 ```js
 const rewritten = data + `<script src="/native.js"></script>` + `<script>${jsInjection}</script>`; // Element Rewriting + JS Injection
