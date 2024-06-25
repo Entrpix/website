@@ -6,24 +6,28 @@ norss: true
 ---
 
 Hai, I'm Lily!
-I am a Transfem 14-yo Fullstack Web-Developer
+I am a 14yo Fullstack Web-Developer intrested in Chromebooks and circumventing internet censorship.
+I'm also a developer for [Mercury Workshop](https://mercurywork.shop) and [FWSmasher](https://github.com/fwsmasher)!
 
-I mainly work with [Typescript](https://www.typescriptlang.org/) and [NodeJS](https://nodejs.org).\
-I am a developer for [Mercury Workshop](https://mercurywork.shop).
-
-Programming languages I'm familiar with:
-- JavaScript/TypeScript
+Programming fields I have expirence in:
+- Linux
+  - Bash
+  - Debian
+  - Self-Hosting
+- Javascript & Typescript
+  - Vanilla
+  - ExpressJS
+  - NodeJS
+  - Astro
+  - Vite
 - Python 3
-- Bash
-- C (Want to learn)
-- C++ (Want to learn)
-- Java (Want to learn)
+  - FastAPI
+
+(I want to learn C, C++, and Java)
 
 Some non-programming things I'm interested in are:
 - Geometry Dash
+- Osu!Mania (4k)
 - Madoka Magica
-- Vocaloid
-- Vtubers
-
-\
-ily [Claire](https://claireoni.xyz/) <3
+- Vocaloid 
+- Vtubers (My kamioshi is Gigi Murin!)
