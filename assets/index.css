@@ -1,5 +1,16 @@
+@keyframes moveBackground {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
 body {
-    background-color: #232634;
+    background-image: linear-gradient(45deg, #232634 25%, #303446 25%, #303446 50%, #232634 50%, #232634 75%, #303446 75%, #303446);
+    background-size: 50px 50px;
+    animation: moveBackground 5s linear infinite;
     color: #c6d0f5;
     margin: 0;
     padding: 0;
@@ -20,7 +31,6 @@ footer {
     bottom: 0;
     width: 100%;
     padding: 10px;
-    background-color: #232634;
 }
 
 .buttons {
@@ -30,11 +40,15 @@ footer {
     overflow: auto;
     display: inline-block;
     width: 100%;
-    background-color: #232634;
+    background-image: linear-gradient(45deg, #232634 25%, #303446 25%, #303446 50%, #232634 50%, #232634 75%, #303446 75%, #303446);
+    background-size: 50px 50px;
+    animation: moveBackground 5s linear infinite;
 }
 
 header {
-    background-color: #292c3c;
+    background-image: linear-gradient(45deg, #232634 25%, #303446 25%, #303446 50%, #232634 50%, #232634 75%, #303446 75%, #303446);
+    background-size: 50px 50px;
+    animation: moveBackground 5s linear infinite;
     width: 100%;
     overflow: auto;
     padding: 10px;
@@ -80,4 +94,47 @@ header {
 
 .main {
     padding: 10px;
+}
+
+.err {
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 2em;
+}
+
+@keyframes rainbowAnimation {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.name {
+    background: linear-gradient(to right, #e78284, #ef9f76, #e5c890, #a6d189, #99d1db, #8caaee, #f4b8e4);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    animation: rainbowAnimation 4s ease-in-out infinite;
+}
+
+@keyframes transAnimation {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.trans {
+    background: linear-gradient(to right, #55CDFC, #F7A8B8, #FFFFFF, #F7A8B8, #55CDFC);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    animation: transAnimation 4s ease-in-out infinite;
+}
+
+h3 {
+    font-size: 1em;
 }

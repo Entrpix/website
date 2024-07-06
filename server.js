@@ -1,4 +1,3 @@
-
 import { createBareServer } from '@tomphttp/bare-server-node';
 import wisp from 'wisp-server-node';
 
@@ -8,28 +7,22 @@ import http from 'http';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
+const bareServer = createBareServer('/bare/');
 const app = express();
+const server = http.createServer(app);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'lily', 'index.html'));
-});
-
-app.get('/kelsea', (req, res) => {
-    res.sendFile(path.join(__dirname, 'kelsea', 'index.html'));
-});
-
+app.use(express.static(path.join(__dirname, 'lily')));
+app.use('/kelsea', express.static(path.join(__dirname, 'kelsea')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.use('/wisp/', (req, res) => {
+    res.send('OK');
     wisp.routeRequest(req, res);
 });
 
-const bareServer = createBareServer('/bare/');
 app.use((req, res, next) => {
     if (bareServer.shouldRoute(req)) {
         bareServer.routeRequest(req, res);
@@ -39,10 +32,9 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res) => {
-    res.status(404).send('Not found.');
+        res.status(404).sendFile('/assets/404.html', { root: __dirname });
 });
 
-const server = http.createServer(app);
 server.on('upgrade', (req, socket, head) => {
     if (req.url.endsWith("/wisp/")) {
         wisp.routeRequest(req, socket, head);

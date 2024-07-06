@@ -20,6 +20,8 @@
   "dependencies": {
     "@tomphttp/bare-server-node": "^2.0.3",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "1.4.5-lts.1",
     "wisp-server-node": "^1.1.0"
   }
 }
