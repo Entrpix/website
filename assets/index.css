@@ -29,6 +29,7 @@ footer {
     overflow: auto;
     display: inline-block;
     width: 100%;
+    background-color: #232634;
 }
 
 header {
